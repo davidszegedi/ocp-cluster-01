@@ -1,0 +1,10 @@
+---
+federated_configs_dir: ./federated-configs
+
+federated_cluster_hosts:
+  - cluster01
+  - cluster02
+  - cluster03
+
+mongodb_pem_data: "{{ lookup('file', mongodb_pem|defaults('./certs/mongo.pem')) }}"
+ca_pem_data: "{{ lookup('file', ca_pem|defaults('./certs/ca.pem')) }}"

@@ -1,0 +1,11 @@
+---
+- name: "Create {{ federated_configs_dir }}"
+  file:
+    path: "{{ federated_configs_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: "Generate 01-mongo-federated-secret.yaml"
+  template:
+    src: 01-mongo-federated-secret.yaml
+    dest: "{{ federated_configs_dir }}/01-mongo-federated-secret.yaml"
