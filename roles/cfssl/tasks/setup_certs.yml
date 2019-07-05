@@ -1,0 +1,52 @@
+- name: "Create cert output dir"
+  file:
+    path: "{{ certdir }}"
+    state: directory
+
+- name: "Create ca-config"
+  template: 
+    src: ca-config.json.j2
+    dest: "{{ certdir }}/ca-config.json"
+    mode: '0644'
+
+- name: "Create ca-csr request"
+  template: 
+    src: ca-csr.json.j2
+    dest: "{{ certdir }}/ca-csr.json"
+    mode: '0644'
+
+- name: "Generate ca.crt"
+  shell: "../{{ bindir }}/cfssl gencert -initca ca-csr.json | ../{{ bindir }}/cfssljson -bare ca"
+  args:
+    chdir: "{{ certdir }}"
+
+- name: "Create mongodb-csr request"
+  template: 
+    src: mongodb-csr.json.j2
+    dest: "{{ certdir }}/mongodb-csr.json"
+    mode: '0644'
+
+- name: "Create hosts list"
+  set_fact:
+    hosts_list:
+      - localhost
+      - localhost.localdomain
+      - 127.0.0.1
+      - ROUTE_CLUSTER1
+      - ROUTE_CLUSTER2
+      - ROUTE_CLUSTER3
+      - mongodb
+      - mongodb.{{ namespace | default('federated-mongo') }}
+      - mongodb.{{ namespace | default('federated-mongo') }}.svc.cluster.local
+
+- name: "Generate mongodb crt"
+  shell: "../{{ bindir }}/cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -hostname={{ hosts_list | join(',') }} -profile={{ ca_profile }} mongodb-csr.json | ../{{ bindir }}/cfssljson -bare mongodb"
+  args:
+    chdir: "{{ certdir }}"
+
+
+- name: "Concatenate mongo pem"
+  shell: "cat mongodb-key.pem mongodb.pem > mongo.pem"
+  args:
+    chdir: "{{ certdir }}"
+

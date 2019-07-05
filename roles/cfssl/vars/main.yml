@@ -1,0 +1,14 @@
+---
+# vars file for cfssl
+cfssl_version: 1.2.0
+
+
+bindir: ./mbin
+certdir: ./certs
+
+ca_profile: kubernetes
+
+ca_country_code: FR
+ca_locality: Paris
+ca_organizational_unit: RedHat
+ca_state: N/A
