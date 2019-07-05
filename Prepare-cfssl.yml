@@ -1,0 +1,8 @@
+---
+- name: "Prepare environment for federated MongoDB deployment"
+  hosts: localhost
+  gather_facts: no
+
+  roles:
+    - role: "cfssl"
+
