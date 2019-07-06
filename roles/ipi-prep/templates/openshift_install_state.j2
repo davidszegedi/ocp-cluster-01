@@ -24,16 +24,14 @@
             "controlPlane": {
                 "name": "{{ var_control_name }}",
                 "replicas": "{{ var_control_qty}}",
-                "platform": {}
-                },
+                "platform": {},
                 "hyperthreading": "{{ var_control_ht }}"
             },
             "compute": [
                 {
                     "name": "{{  var_compute_name }}",
                     "replicas": "{{ var_compute_qty }}",
-                    "platform": {}
-                    },
+                    "platform": {},
                     "hyperthreading": "{{ var_control_ht }}"
                 }
             ],
