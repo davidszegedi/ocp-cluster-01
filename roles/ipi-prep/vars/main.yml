@@ -1,4 +1,5 @@
 ---
 # vars file for ipi-prep
 var_pullsecret: ""
+var_pullsecretjson: ""
 var_sshkey: ""

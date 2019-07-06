@@ -48,7 +48,7 @@
                     "region": "{{ var_awsregion }}"
                 }
             },
-            "pullSecret": "{{ var_pullsecret }}"
+            "pullSecret": "{{ var_pullsecretjson }}"
         },
         "file": {
             "Filename": "install-config.yaml"
@@ -66,7 +66,7 @@
         }
     },
     "*installconfig.pullSecret": {
-        "PullSecret": "{{ var_pullsecret }}"
+        "PullSecret": "{{ var_pullsecretjson }}"
     },
     "*installconfig.sshPublicKey": {
         "Key": "{{ var_sshkey}}"
