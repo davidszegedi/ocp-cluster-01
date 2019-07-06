@@ -1,7 +1,7 @@
 ---
 - name: Create ocp clusters folders
   file:
-    path: ./"{{ item.name }}"
+    path: "./{{ item.name }}"
     state: directory
   loop: "{{ var_cluster_info }}"
 
@@ -17,12 +17,12 @@
 
 - name: Copy {{ var_ocpinstall_filename_extract }} to clusters folders
   copy:
-    src: ./"{{ var_ocpinstall_filename_extract }}""
-    dest: ./"{{ item.name }}"
+    src: "./{{ var_ocpinstall_filename_extract }}"
+    dest: "./{{ item.name }}"
   loop: "{{ var_cluster_info }}"
 
 - name: Copy configuration template to clusters folders
   template:
     src: "{{ var_installconfig_path }}"
-    dest: ./"{{ item.name }}"
+    dest: "./{{ item.name }}"
   loop: "{{ var_cluster_info }}"

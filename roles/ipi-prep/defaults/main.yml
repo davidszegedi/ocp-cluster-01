@@ -13,9 +13,9 @@ var_creationtimestamp: null
 var_cluster_name: "{{ item.name }}"
 var_awsregion: "{{ item.region }}"
 var_cluster_info:
-  - { name: 'cluster01', region: 'eu-west-3' }
-  - { name: 'cluster02', region: 'eu-central-1' }
-  - { name: 'cluster03', region: 'eu-west-1' }
+  - { name: cluster01, region: eu-west-3 }
+  - { name: cluster02, region: eu-central-1 }
+  - { name: cluster03, region: eu-west-1 }
 var_clusternetwork_cidr: 10.128.0.0/14
 var_clusternetwork_hostprefix: 23
 var_machinecidr: 10.0.0.0/16
