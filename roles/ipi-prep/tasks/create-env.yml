@@ -26,3 +26,9 @@
     src: "{{ var_installconfig_path }}"
     dest: "./{{ item.name }}/install-config.yaml"
   loop: "{{ var_cluster_info }}"
+
+- name: Copy configuration state to clusters folders
+  template:
+    src: "{{ var_installstate_path }}"
+    dest: "./{{ item.name }}/.openshift_install_state.json"
+  loop: "{{ var_cluster_info }}"
