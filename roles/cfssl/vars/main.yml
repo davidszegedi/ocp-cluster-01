@@ -4,7 +4,9 @@ cfssl_version: 1.2.0
 
 
 bindir: ./mbin
-certdir: ./certs
+ocp:
+  cluster:
+    certdir: ./certs
 
 ca_profile: kubernetes
 
