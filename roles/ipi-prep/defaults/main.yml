@@ -1,0 +1,22 @@
+---
+var_basedomain: rheventdemo.com
+var_compute_ht: Enabled
+var_compute_name: worker
+var_compute_instancetype: m5.large
+var_compute_qty: 3
+var_control_ht: Enabled
+var_control_name: master
+var_control_instancetype: m5.xlarge
+var_control_qty: 3
+var_creationtimestamp: null
+var_cluster_name: master
+var_clusternetwork_cidr: 10.128.0.0/14
+var_clusternetwork_hostprefix: 23
+var_machinecidr: 10.0.0.0/16
+var_networktype: OpenShiftSDN
+var_servicenetwork: 172.30.0.0/16
+platform:
+  aws:
+    region: "{{ var_awsregion }}"
+pullSecret: "{{ var_pullsecret }}"
+sshKey: "{{ var_sshkey }}"
