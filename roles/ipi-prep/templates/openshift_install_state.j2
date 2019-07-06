@@ -4,7 +4,7 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "{{ var_cluster_name }}",
-                "creationTimestamp": {{ var_creationtimestamp }}
+                "creationTimestamp": "{{ var_creationtimestamp }}"
             },
             "sshKey": "{{ var_sshkey }}",
             "baseDomain": "{{ var_basedomain }}",
@@ -14,7 +14,7 @@
                 "clusterNetwork": [
                     {
                         "cidr": "{{ var_clusternetwork_cidr }}",
-                        "hostPrefix": {{ var_clusternetwork_hostprefix }}
+                        "hostPrefix": "{{ var_clusternetwork_hostprefix }}"
                     }
                 ],
                 "serviceNetwork": [
@@ -23,7 +23,7 @@
             },
             "controlPlane": {
                 "name": "{{ var_control_name }}",
-                "replicas": {{ var_control_qty}},
+                "replicas": "{{ var_control_qty}}",
                 "platform": {
                   "aws": {
                     "type": "{{ var_control_instancetype }}"
@@ -34,7 +34,7 @@
             "compute": [
                 {
                     "name": "{{  var_compute_name }}",
-                    "replicas": {{ var_compute_qty }},
+                    "replicas": "{{ var_compute_qty }}",
                     "platform": {
                       "aws": {
                         "type": "{{ var_compute_instancetype }}"
