@@ -24,7 +24,10 @@
             "controlPlane": {
                 "name": "{{ var_control_name }}",
                 "replicas": "{{ var_control_qty}}",
-                "platform": {}
+                "platform": {
+                  "aws": {
+                    "type": "{{ var_control_instancetype }}"
+                  }
                 },
                 "hyperthreading": "{{ var_control_ht }}"
             },
@@ -32,7 +35,10 @@
                 {
                     "name": "{{  var_compute_name }}",
                     "replicas": "{{ var_compute_qty }}",
-                    "platform": {}
+                    "platform": {
+                      "aws": {
+                        "type": "{{ var_compute_instancetype }}"
+                      }
                     },
                     "hyperthreading": "{{ var_control_ht }}"
                 }

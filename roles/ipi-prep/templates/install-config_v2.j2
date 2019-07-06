@@ -10,7 +10,9 @@ compute:
 controlPlane:
   hyperthreading: {{ var_control_ht }}
   name: {{ var_control_name }}
-  platform: {}
+  platform:
+    aws:
+      type: {{ var_control_instancetype }}
   replicas: {{ var_control_qty }}
 metadata:
   creationTimestamp: {{ var_creationtimestamp }}
