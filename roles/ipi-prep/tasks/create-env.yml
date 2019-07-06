@@ -1,0 +1,28 @@
+---
+- name: Create ocp clusters folders
+  file:
+    path: ./"{{ item.name }}"
+    state: directory
+  loop: "{{ var_cluster_info }}"
+
+- name: Get {{ var_ocpinstall_filename}} installer file
+  get_url:
+    url: "{{ var_ocpinstall_url }}{{ var_ocpinstall_filename}}"
+    dest: ./
+
+- name: Extract ocp installer
+  unarchive:
+    src: "{{ var_ocpinstall_filename}}"
+    dest: ./
+
+- name: Copy {{ var_ocpinstall_filename_extract }} to clusters folders
+  copy:
+    src: ./"{{ var_ocpinstall_filename_extract }}""
+    dest: ./"{{ item.name }}"
+  loop: "{{ var_cluster_info }}"
+
+- name: Copy configuration template to clusters folders
+  template:
+    src: "{{ var_installconfig_path }}"
+    dest: ./"{{ item.name }}"
+  loop: "{{ var_cluster_info }}"

@@ -1,4 +1,5 @@
 ---
+# defaults file for ipi-prep
 var_basedomain: rheventdemo.com
 var_compute_ht: Enabled
 var_compute_name: worker
@@ -9,14 +10,18 @@ var_control_name: master
 var_control_instancetype: m5.xlarge
 var_control_qty: 3
 var_creationtimestamp: null
-var_cluster_name: master
+var_cluster_name: "{{ item.name }}"
+var_awsregion: "{{ item.region }}"
+var_cluster_info:
+  - { name: 'cluster01', region: 'eu-west-3' }
+  - { name: 'cluster02', region: 'eu-central-1' }
+  - { name: 'cluster03', region: 'eu-west-1' }
 var_clusternetwork_cidr: 10.128.0.0/14
 var_clusternetwork_hostprefix: 23
 var_machinecidr: 10.0.0.0/16
 var_networktype: OpenShiftSDN
 var_servicenetwork: 172.30.0.0/16
-platform:
-  aws:
-    region: "{{ var_awsregion }}"
-pullSecret: "{{ var_pullsecret }}"
-sshKey: "{{ var_sshkey }}"
+var_ocpinstall_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/
+var_ocpinstall_filename: openshift-install-linux-4.1.4.tar.gz
+var_ocpinstall_filename_extract: openshift-install
+var_installconfig_path: templates/install-config.j2

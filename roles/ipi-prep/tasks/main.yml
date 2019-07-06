@@ -1,2 +1,3 @@
 ---
-# tasks file for ipi-prep
+- name: Create ocp installation environment
+  include_tasks: "create-env.yaml"
