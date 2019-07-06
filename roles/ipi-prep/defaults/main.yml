@@ -9,7 +9,7 @@ var_control_ht: Enabled
 var_control_name: master
 var_control_instancetype: m5.xlarge
 var_control_qty: 3
-var_creationtimestamp: null
+var_creationtimestamp: 'null'
 var_cluster_name: "{{ item.name }}"
 var_awsregion: "{{ item.region }}"
 var_cluster_info:
