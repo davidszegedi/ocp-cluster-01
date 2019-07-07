@@ -6,5 +6,9 @@ federated_cluster_hosts:
   - cluster02
   - cluster03
 
-mongodb_pem_data: "{{ lookup('file', mongodb_pem|defaults('./certs/mongo.pem')) }}"
-ca_pem_data: "{{ lookup('file', ca_pem|defaults('./certs/ca.pem')) }}"
+mongodb_pem_data: "{{ lookup('file', mongodb_pem|default('./certs/mongo.pem')) | b64encode }}"
+ca_pem_data: "{{ lookup('file', ca_pem|default('./certs/ca.pem')) | b64encode }}"
+
+
+mongo_db_external_port: 27017
+mongo_db_internal_port: 27017
