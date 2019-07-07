@@ -1,0 +1,27 @@
+---
+- name: Create config backup folders
+  file:
+    path: "./{{ item.name }}/bkp"
+    state: directory
+  loop: "{{ var_cluster_info }}"
+
+- name: Backup configuration files before deployment
+  copy:
+    src: "./{{ item.name }}/{{ var_installconfig }}"
+    dest: "./{{ item.name }}/bkp"
+  loop: "{{ var_cluster_info }}"
+
+- name: Backup state files before deployment
+  copy:
+    src: "./{{ item.name }}/{{ var_openshiftinstallstate }}"
+    dest: "./{{ item.name }}/bkp"
+  loop: "{{ var_cluster_info }}"
+
+- name: Deploy OpenShift cluster(s)
+  shell: "sleep {{ item }}"
+  args:
+    chdir: "./{{ item.name }}/"
+  loop: "{{ var_cluster_info }}"
+  register: cluster_deployment
+  async: 3600
+  poll: 0

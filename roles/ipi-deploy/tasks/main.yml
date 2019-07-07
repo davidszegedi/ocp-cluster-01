@@ -1,2 +1,3 @@
 ---
-# tasks file for ipi-deploy
+- name: Deploy ocp cluster(s)
+  include_tasks: "deploy-cluster.yml"

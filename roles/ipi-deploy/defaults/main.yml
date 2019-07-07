@@ -1,2 +1,7 @@
 ---
-# defaults file for ipi-deploy
+var_cluster_info:
+  - { name: cluster01, region: eu-west-3, deploy: yes }
+  - { name: cluster02, region: eu-central-1, deploy: yes }
+  - { name: cluster03, region: eu-west-1, deploy: yes }
+var_installconfig: install-config.yaml
+var_openshiftinstallstate: .openshift_install_state.json
