@@ -17,7 +17,7 @@
     dest: "./{{ item.name }}/bkp"
   loop: "{{ var_cluster_info }}"
 
-- name: Deploy OpenShift cluster(s)
+- name: Deploy OpenShift cluster(s) in parallel
   shell: "./openshift-install create cluster --log-level=debug"
   args:
     chdir: "./{{ item.name }}/"
@@ -27,7 +27,6 @@
   async: 1800
   poll: 0
 
-
 - name: Wait for OpenShift cluster(s) deployment result(s)
   async_status:
     jid: "{{ item.ansible_job_id }}"
@@ -36,3 +35,10 @@
   retries: 90
   delay: 60
   loop: "{{ cluster_deployment.results }}"
+
+- name: Tail openshift_install.log
+  shell: "tail .openshift_install.log"
+  args:
+    chdir: "./{{ item.name }}/"
+  loop: "{{ var_cluster_info }}"
+  when: item.deploy == true
