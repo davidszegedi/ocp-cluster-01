@@ -19,6 +19,7 @@
   copy:
     src: "./{{ var_ocpinstall_filename_extract }}"
     dest: "./{{ item.name }}"
+    mode: u+x,g+x,o+x
   loop: "{{ var_cluster_info }}"
 
 - name: Copy configuration template to clusters folders

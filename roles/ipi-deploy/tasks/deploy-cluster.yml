@@ -33,6 +33,6 @@
     jid: "{{ item.ansible_job_id }}"
   register: cluster_deployment_status
   until: cluster_deployment_status.finished
-  retries: 20
-  delay: 30
+  retries: 90
+  delay: 60
   loop: "{{ cluster_deployment.results }}"
