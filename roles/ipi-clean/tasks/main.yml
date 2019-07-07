@@ -1,0 +1,3 @@
+---
+- name: Destroy ocp cluster(s)
+  include_tasks: "destroy-cluster.yml"

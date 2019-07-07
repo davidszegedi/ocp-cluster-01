@@ -1,0 +1,7 @@
+---
+- name: "Deploy OpenShift Cluster(s) on AWS"
+  hosts: localhost
+  gather_facts: no
+
+  roles:
+    - role: "ipi-clean"

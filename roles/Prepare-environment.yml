@@ -1,7 +1,0 @@
----
-- name: "Prepare environment for OpenShift installer on AWS"
-  hosts: localhost
-  gather_facts: no
-
-  roles:
-    - role: "ipi-prep"

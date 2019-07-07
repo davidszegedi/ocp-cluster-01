@@ -1,0 +1,37 @@
+---
+- name: Destroy OpenShift cluster(s) in parallel
+  shell: "./openshift-install destroy cluster "
+  args:
+    chdir: "./{{ item.name }}/"
+  loop: "{{ var_cluster_info }}"
+  when: item.destroy == true
+  register: cluster_destruction
+  async: 1800
+  poll: 0
+
+- name: Wait for OpenShift cluster(s) destruction result(s)
+  async_status:
+    jid: "{{ item.ansible_job_id }}"
+  register: cluster_destruction_status
+  until: cluster_destruction_status.finished
+  retries: 100
+  delay: 30
+  loop: "{{ cluster_destruction.results }}"
+
+- name: Remove install log file
+  file:
+    path: "./{{ item.name }}/.openshift_install.log"
+    state: absent
+  loop: "{{ var_cluster_info }}"
+
+- name: Restore configuration template to clusters folders
+  template:
+    src: "./{{ item.name }}/install-config.yaml"
+    dest: "."
+  loop: "{{ var_cluster_info }}"
+
+- name: Restore configuration state to clusters folders
+  template:
+    src: "./{{ item.name }}/.openshift_install_state.json"
+    dest: "."
+  loop: "{{ var_cluster_info }}"

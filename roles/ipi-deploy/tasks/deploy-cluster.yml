@@ -42,3 +42,9 @@
     chdir: "./{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
   when: item.deploy == true
+  register: tail_output
+
+- name: Show Tail output
+  debug:
+    var: item
+  loop: "{{ tail_output.results }}"
