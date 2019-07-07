@@ -25,4 +25,4 @@
   register: cluster_deployment
   async: 3600
   poll: 0
-  when: item.deploy == "yes"
+  when: item.deploy == yes
