@@ -22,7 +22,17 @@
   args:
     chdir: "./{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
-  register: cluster_deployment
-  async: 3600
-  poll: 0
   when: item.deploy == true
+  register: cluster_deployment
+  async: 1800
+  poll: 0
+  
+
+- name: Wait for OpenShift cluster(s) deployment result(s)
+  async_status:
+    id: "{{ item.ansible_job_id }}"
+  register: cluster_deployment_status
+  retries: 20
+  delay: 20
+  until: cluster_deployment_status.finished
+  loop: "{{cluster_deployment.results}}"
