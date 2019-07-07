@@ -18,10 +18,11 @@
   loop: "{{ var_cluster_info }}"
 
 - name: Deploy OpenShift cluster(s)
-  shell: "sleep {{ item }}"
+  shell: "./openshift-install create cluster --log-level=debug"
   args:
     chdir: "./{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
   register: cluster_deployment
   async: 3600
   poll: 0
+  when: item.deploy == "yes"
