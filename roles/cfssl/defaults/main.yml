@@ -1,15 +1,16 @@
 ---
 # vars file for cfssl
-cfssl_version: 1.2.0
+cfssl:
+  version: 1.2.0
+  bindir: ./mbin
 
 
-bindir: ./mbin
 ocp:
   cluster:
     certdir: ./certs
 
-ca_profile: kubernetes
 
+ca_profile: kubernetes
 ca_country_code: FR
 ca_locality: Paris
 ca_organizational_unit: RedHat
