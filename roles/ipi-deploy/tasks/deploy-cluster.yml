@@ -24,7 +24,7 @@
   loop: "{{ var_cluster_info }}"
   when: item.deploy == true
   register: cluster_deployment
-  async: 1800
+  async: 3600
   poll: 0
 
 - name: Wait for OpenShift cluster(s) deployment result(s)
@@ -32,7 +32,7 @@
     jid: "{{ item.ansible_job_id }}"
   register: cluster_deployment_status
   until: cluster_deployment_status.finished
-  retries: 90
+  retries: 70
   delay: 60
   loop: "{{ cluster_deployment.results }}"
 
