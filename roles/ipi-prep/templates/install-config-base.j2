@@ -3,16 +3,12 @@ baseDomain: {{ var_basedomain }}
 compute:
 - hyperthreading: {{ var_compute_ht }}
   name: {{ var_compute_name }}
-  platform:
-    aws:
-      type: {{ var_compute_instancetype }}
+  platform: {}
   replicas: {{ var_compute_qty }}
 controlPlane:
   hyperthreading: {{ var_control_ht }}
   name: {{ var_control_name }}
-  platform:
-    aws:
-      type: {{ var_control_instancetype }}
+  platform: {}
   replicas: {{ var_control_qty }}
 metadata:
   creationTimestamp: {{ var_creationtimestamp }}
