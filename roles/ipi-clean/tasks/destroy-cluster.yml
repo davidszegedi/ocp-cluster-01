@@ -27,11 +27,11 @@
 - name: Restore configuration template to clusters folders
   template:
     src: "./{{ item.name }}/bkp//install-config.yaml"
-    dest: "."
+    dest: "./{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
 
 - name: Restore configuration state to clusters folders
   template:
     src: "./{{ item.name }}/bkp/.openshift_install_state.json"
-    dest: "."
+    dest: "./{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
