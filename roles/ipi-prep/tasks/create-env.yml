@@ -5,14 +5,14 @@
     state: directory
   loop: "{{ var_cluster_info }}"
 
-- name: Get {{ var_ocpinstall_filename}} installer file
+- name: Get {{ var_ocpinstall_filename }} installer file
   get_url:
-    url: "{{ var_ocpinstall_url }}{{ var_ocpinstall_filename}}"
+    url: "{{ var_ocpinstall_url }}{{ var_ocpinstall_filename }}"
     dest: ./
 
 - name: Extract ocp installer
   unarchive:
-    src: "{{ var_ocpinstall_filename}}"
+    src: "{{ var_ocpinstall_filename }}"
     dest: ./
 
 - name: Copy {{ var_ocpinstall_filename_extract }} to clusters folders

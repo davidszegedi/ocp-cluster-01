@@ -23,7 +23,7 @@
             },
             "controlPlane": {
                 "name": "{{ var_control_name }}",
-                "replicas": {{ var_control_qty}},
+                "replicas": {{ var_control_qty }},
                 "platform": {
                   "aws": {
                     "type": "{{ var_control_instancetype }}"
@@ -69,6 +69,6 @@
         "PullSecret": "{{ var_pullsecretjson }}"
     },
     "*installconfig.sshPublicKey": {
-        "Key": "{{ var_sshkey}}"
+        "Key": "{{ var_sshkey }}"
     }
 }
