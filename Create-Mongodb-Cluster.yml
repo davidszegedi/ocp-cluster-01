@@ -1,0 +1,8 @@
+---
+- name: "Create federated MongoDB cluster"
+  hosts: localhost
+  gather_facts: no
+
+  roles:
+    - role: "mongodb-federated-deploy"
+

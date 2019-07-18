@@ -1,0 +1,4 @@
+---
+ocp:
+  cluster:
+    certdir: ./build/certs

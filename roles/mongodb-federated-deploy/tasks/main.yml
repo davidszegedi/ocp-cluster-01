@@ -1,0 +1,3 @@
+---
+# tasks file for mongodb-federated-deploy
+- include: "create_config_files.yml"
