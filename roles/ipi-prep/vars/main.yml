@@ -2,8 +2,8 @@
 # vars file for ipi-prep
 # define these vars or pass them as extra vars when launching the playbooks
 #used in install-config.yaml
-var_pullsecret: ""
+#var_pullsecret: ""
 #used in .openshift_install_state.json
-var_pullsecretjson: ""
+#var_pullsecretjson: ""
 #used in both files
-var_sshkey: ""
+#var_sshkey: ""
