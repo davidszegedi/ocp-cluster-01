@@ -1,0 +1,8 @@
+---
+- name: "Prepare environment for federation"
+  hosts: localhost
+  gather_facts: yes
+
+  roles:
+    - role: "kubefed"
+
