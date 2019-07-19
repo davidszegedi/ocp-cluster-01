@@ -1,4 +1,5 @@
 ---
+bindir: ./mbin
 ocp:
   cluster:
     certdir: ./build/certs
