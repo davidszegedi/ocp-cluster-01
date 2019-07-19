@@ -2,3 +2,4 @@ federated-configs/
 mbin/
 certs/
 *.sw?
+*.retry
