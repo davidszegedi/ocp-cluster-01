@@ -1,0 +1,3 @@
+---
+# tasks file for kubefed
+- include: "install.yml"

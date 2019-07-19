@@ -1,0 +1,38 @@
+---
+- name: "Create local binary directory"
+  file:
+    path: "{{ bindir | default(project.bindir) }}"
+    state: directory
+
+- name: "Check if kubefedctl already installed"
+  stat:
+    path: "{{ bindir | default(project.bindir) }}/kubefedctl"
+  register: kubefedctl_exists
+
+- name: "Check kubefedctl version"
+  shell: "{{ bindir | default(project.bindir) }}/kubefedctl version | sed -e 's/.*{Version:\"v\\([^\"]*\\)\".*/\\1/'"
+  register: kubefedctl_version_check
+  when: kubefedctl_exists.stat.exists == True
+  changed_when: False
+  failed_when: False
+
+#    url: "https://github.com/kubernetes-sigs/kubefed/releases/download/v{{kubefedctl.version}}/kubefedctl-{{kubefedctl.version}}-{{ansible_system | lower }}-amd64.tgz"
+- name: "Download kubefedctl {{ kubefedctl.version }}"
+  get_url:
+    url: "https://github.com/kubernetes-sigs/kubefed/releases/download/v{{kubefedctl.version}}/kubefedctl.tgz"
+    dest: ./kubefedctl.tgz
+  when: kubefedctl_exists.stat.exists == False or kubefedctl_version_check.stdout_lines[0] is version(kubefedctl.version|string, '<')
+
+- name: "Extract kubefedctl into {{ bindir | default(project.bindir) }}"
+  command: "tar -xvzf ./kubefedctl.tgz -C {{ bindir | default(project.bindir) }}"
+  when: kubefedctl_exists.stat.exists == False or kubefedctl_version_check.stdout_lines[0] is version(kubefedctl.version|string, '<')
+
+- name: "Check kubefedctl mode"
+  file:
+    path: "{{ bindir | default(project.bindir) }}/kubefedctl"
+    mode: '0755'
+
+- name: "Remove downloaded binary"
+  file:
+    path: "./kubefedctl-{{kubefedctl.version}}-{{ansible_system | lower }}-amd64.tgz"
+    state: absent

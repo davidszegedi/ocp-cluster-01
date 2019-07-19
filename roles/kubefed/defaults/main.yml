@@ -1,0 +1,10 @@
+---
+# defaults file for kubefed
+kubefedctl:
+  version: 0.0.10
+  os: linux
+  arch: amd64
+
+
+project:
+  bindir: mbin/
