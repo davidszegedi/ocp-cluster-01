@@ -1,4 +1,5 @@
 ---
+var_demofolder_name: "fed-ocp-demo"
 var_cluster_info:
   - { name: cluster01, region: eu-west-3, deploy: true }
   - { name: cluster02, region: eu-central-1, deploy: true }

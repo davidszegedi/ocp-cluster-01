@@ -2,7 +2,7 @@
 - name: Destroy OpenShift cluster(s) in parallel
   shell: "./openshift-install destroy cluster "
   args:
-    chdir: "./{{ item.name }}/"
+    chdir: "~/{{ var_demofolder_name }}/{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
   when: item.destroy == true
   register: cluster_destruction
@@ -20,18 +20,18 @@
 
 - name: Remove install log file
   file:
-    path: "./{{ item.name }}/.openshift_install.log"
+    path: "~/{{ var_demofolder_name }}/{{ item.name }}/.openshift_install.log"
     state: absent
   loop: "{{ var_cluster_info }}"
 
 - name: Restore configuration template to clusters folders
   template:
-    src: "./{{ item.name }}/bkp//install-config.yaml"
-    dest: "./{{ item.name }}/"
+    src: "~/{{ var_demofolder_name }}/{{ item.name }}/bkp//install-config.yaml"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
 
 - name: Restore configuration state to clusters folders
   template:
-    src: "./{{ item.name }}/bkp/.openshift_install_state.json"
-    dest: "./{{ item.name }}/"
+    src: "~/{{ var_demofolder_name }}/{{ item.name }}/bkp/.openshift_install_state.json"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}/"
   loop: "{{ var_cluster_info }}"
