@@ -1,35 +1,35 @@
 ---
 - name: Create ocp clusters folders
   file:
-    path: "./{{ item.name }}"
+    path: "~/{{ var_demofolder_name }}/{{ item.name }}"
     state: directory
   loop: "{{ var_cluster_info }}"
 
 - name: Get {{ var_ocpinstall_filename }} installer file
   get_url:
     url: "{{ var_ocpinstall_url }}{{ var_ocpinstall_filename }}"
-    dest: ./
+    dest: "~/{{ var_demofolder_name }}/"
 
 - name: Extract ocp installer
   unarchive:
     src: "{{ var_ocpinstall_filename }}"
-    dest: ./
+    dest: "~/{{ var_demofolder_name }}/"
 
 - name: Copy {{ var_ocpinstall_filename_extract }} to clusters folders
   copy:
-    src: "./{{ var_ocpinstall_filename_extract }}"
-    dest: "./{{ item.name }}"
+    src: "~/{{ var_demofolder_name }}/{{ var_ocpinstall_filename_extract }}"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}"
     mode: u+x,g+x,o+x
   loop: "{{ var_cluster_info }}"
 
 - name: Copy configuration template to clusters folders
   template:
     src: "{{ var_installconfig_path }}"
-    dest: "./{{ item.name }}/install-config.yaml"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}/install-config.yaml"
   loop: "{{ var_cluster_info }}"
 
 - name: Copy configuration state to clusters folders
   template:
     src: "{{ var_installstate_path }}"
-    dest: "./{{ item.name }}/.openshift_install_state.json"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}/.openshift_install_state.json"
   loop: "{{ var_cluster_info }}"
