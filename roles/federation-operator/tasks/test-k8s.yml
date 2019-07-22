@@ -1,0 +1,61 @@
+---
+- name: "install k8s operator through ansible module"
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    namespace: ansible-k8s-testing
+    install_state: present
+
+  tasks:
+    - name: "Create or delete k8s namespace {{ namespace }}"
+      k8s:
+        state: "{{ install_state }}"
+        name: "{{ namespace }}"
+        api_version: v1
+        kind: Namespace
+
+    - name: Create OperatorGroup for federation operator
+      k8s:
+        state: "{{ install_state }}"
+        definition:
+          apiVersion: operators.coreos.com/v1
+          kind: OperatorGroup
+          metadata:
+            generation: 2
+            name: federated-mongodb-6lrc6
+            namespace: "{{ namespace }}"
+          spec:
+            targetNamespaces:
+            - "{{ namespace }}"
+      when: install_state == 'present'
+
+    - name: Create CatalogSourceConfig for federation operator
+      k8s:
+        state: "{{ install_state }}"
+        definition:
+          apiVersion: operators.coreos.com/v1
+          kind: CatalogSourceConfig
+          metadata:
+            name: federation-operator
+            namespace: openshift-marketplace
+          spec:
+            targetNamespace: "{{ namespace }}"
+            packages: federation
+      when: install_state == 'present'
+
+    - name: Create Subscription for federation operator
+      k8s:
+        state: "{{ install_state }}"
+        definition:
+          apiVersion: operators.coreos.com/v1alpha1
+          kind: Subscription
+          metadata:
+            name: federation
+            namespace: "{{ namespace }}"
+          spec:
+            channel: alpha
+            name: federation
+            source: federation-operator
+            sourceNamespace: "{{ namespace }}"
+      when: install_state == 'present'

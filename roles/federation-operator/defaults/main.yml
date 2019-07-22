@@ -1,0 +1,3 @@
+---
+# defaults file for federation-operator
+install_state: present
