@@ -23,7 +23,7 @@ var_machinecidr: 10.0.0.0/16
 var_networktype: OpenShiftSDN
 var_servicenetwork: 172.30.0.0/16
 var_ocpinstall_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/
-var_ocpinstall_filename: openshift-install-linux-4.1.4.tar.gz
+var_ocpinstall_filename: openshift-install-linux-4.1.6.tar.gz
 var_ocpinstall_filename_extract: openshift-install
 var_installconfig_path: templates/install-config.j2
 var_installstate_path: templates/openshift_install_state.j2
