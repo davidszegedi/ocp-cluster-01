@@ -12,7 +12,7 @@
 
 - name: Extract ocp installer
   unarchive:
-    src: "{{ var_ocpinstall_filename }}"
+    src: "~/{{ var_demofolder_name }}/{{ var_ocpinstall_filename }}"
     dest: "~/{{ var_demofolder_name }}/"
 
 - name: Copy {{ var_ocpinstall_filename_extract }} to clusters folders
