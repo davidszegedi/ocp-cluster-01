@@ -1,0 +1,39 @@
+---
+- name: "Create cert output dir"
+  file:
+    path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}"
+    state: directory
+
+- name: "Create ca-config"
+  template:
+    src: ca-config.json.j2
+    dest: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca-config.json"
+    mode: '0644'
+
+- name: "Create ca-csr request"
+  template:
+    src: ca-csr.json.j2
+    dest: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca-csr.json"
+    mode: '0644'
+
+- name: "Generate ca.crt"
+  shell: "cfssl gencert -initca ca-csr.json | cfssljson -bare ca"
+  args:
+    chdir: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}"
+
+- name: "Create mongodb-csr request"
+  template:
+    src: mongodb-csr.json.j2
+    dest: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongodb-csr.json"
+    mode: '0644'
+
+- name: "Generate mongodb crt"
+  shell: "cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -hostname={{ var_hosts_list | join(',') }} -profile={{ ca_profile }} mongodb-csr.json | cfssljson -bare mongodb"
+  args:
+    chdir: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}"
+
+
+- name: "Concatenate mongo pem"
+  shell: "cat mongodb-key.pem mongodb.pem > mongo.pem"
+  args:
+    chdir: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}"

@@ -1,0 +1,21 @@
+---
+# vars file for cfssl
+var_demofolder_name: "fed-ocp-demo"
+var_certdir_name: "certs"
+
+var_hosts_list:
+  - localhost
+  - localhost.localdomain
+  - 127.0.0.1
+  - mongo-cluster01.apps.cluster01.rheventdemo.com
+  - mongo-cluster02.apps.cluster02.rheventdemo.com
+  - mongo-cluster03.apps.cluster03.rheventdemo.com
+  - mongodb
+  - mongodb.{{ namespace | default('federated-mongo') }}
+  - mongodb.{{ namespace | default('federated-mongo') }}.svc.cluster.local
+
+ca_profile: kubernetes
+ca_country_code: FR
+ca_locality: Paris
+ca_organizational_unit: RedHat
+ca_state: N/A
