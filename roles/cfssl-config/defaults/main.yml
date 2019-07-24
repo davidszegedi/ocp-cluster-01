@@ -2,6 +2,8 @@
 # vars file for cfssl
 var_demofolder_name: "fed-ocp-demo"
 var_certdir_name: "certs"
+var_mongofed_service: mongodb
+var_mongofed_namespace: federated-mongo
 
 var_hosts_list:
   - localhost
@@ -10,9 +12,10 @@ var_hosts_list:
   - mongo-cluster01.apps.cluster01.rheventdemo.com
   - mongo-cluster02.apps.cluster02.rheventdemo.com
   - mongo-cluster03.apps.cluster03.rheventdemo.com
-  - mongodb
-  - mongodb.{{ namespace | default('federated-mongo') }}
-  - mongodb.{{ namespace | default('federated-mongo') }}.svc.cluster.local
+  - "{{ var_mongofed_service }}"
+  - "{{ var_mongofed_service }}.{{ var_mongofed_namespace }}"
+  - "{{ var_mongofed_service }}.{{ var_mongofed_namespace }}.svc.cluster.local"
+
 
 ca_profile: kubernetes
 ca_country_code: FR
