@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1
+kind: "{{ var_og_kind }}"
+metadata:
+  name: "{{ var_og_metadata_name }}"
+  namespace: "{{ var_og_metadata_namespace }}"
+spec:
+  targetNamespaces:
+    - "{{ var_og_spec_namespace }}"

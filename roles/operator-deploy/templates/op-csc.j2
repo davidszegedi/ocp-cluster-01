@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1
+kind: "{{ var_csc_kind }}"
+metadata:
+  name: "{{ var_csc_metadata_name }}"
+  namespace: "{{ var_csc_metadata_namespace }}"
+spec:
+  targetNamespace: "{{ var_csc_spec_targetnamespace }}"
+  packages: "{{ var_csc_spec_packages }}"
+  csDisplayName: "{{ var_csc_spec_csdisplayname }}"
+  csPublisher: "{{ var_csc_spec_cspublisher }}"

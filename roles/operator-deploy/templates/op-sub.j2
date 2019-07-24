@@ -1,0 +1,12 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: "{{ var_sub_kind }}"
+metadata:
+  name: "{{ var_sub_metadata_name }}"
+  namespace: "{{ var_sub_metadata_namespace }}"
+spec:
+  channel: "{{ var_sub_spec_channel }}"
+  name: "{{ var_sub_spec_name }}"
+  source: "{{ var_sub_spec_source }}"
+  sourceNamespace: "{{ var_sub_spec_sourcenamespace }}"
+  startingCSV: "{{ var_sub_spec_startingcsv }}"
+  installPlanApproval: "{{ var_sub_spec_installplanapproval }}"

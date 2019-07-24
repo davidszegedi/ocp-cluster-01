@@ -33,23 +33,3 @@
     src: "{{ var_installstate_path }}"
     dest: "~/{{ var_demofolder_name }}/{{ item.name }}/.openshift_install_state.json"
   loop: "{{ var_cluster_info }}"
-
-- name: Get {{ var_occlient_filename }} file
-  get_url:
-    url: "{{ var_ocpinstall_url }}{{ var_occlient_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
-
-- name: Extract oc client
-  unarchive:
-    src: "~/{{ var_demofolder_name }}/{{ var_occlient_filename }}"
-    dest: "~/bin/"
-
-- name: Get {{ var_kubefedctl_filename }} file
-  get_url:
-    url: "{{ var_kubefedctl_url }}{{ var_kubefedctl_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
-
-- name: Extract kubefedctl client
-  unarchive:
-    src: "~/{{ var_demofolder_name }}/{{ var_kubefedctl_filename }}"
-    dest: "~/bin/"

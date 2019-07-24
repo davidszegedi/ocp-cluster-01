@@ -30,3 +30,6 @@ var_installstate_path: templates/openshift_install_state.j2
 var_occlient_filename: openshift-client-linux-4.1.6.tar.gz
 var_kubefedctl_url: https://github.com/kubernetes-sigs/kubefed/releases/download/v0.0.10/
 var_kubefedctl_filename: kubefedctl.tgz
+var_cfssl_path: https://pkg.cfssl.org/R1.2/
+var_cfssl_filename: cfssl_linux-amd64
+var_cfssljson_filename: cfssljson_linux-amd64

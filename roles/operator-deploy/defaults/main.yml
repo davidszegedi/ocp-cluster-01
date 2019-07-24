@@ -1,2 +1,23 @@
 ---
-# defaults file for operator-deploy
+var_csc_kind: CatalogSourceConfig
+var_csc_metadata_name: namespaced-federation
+var_csc_metadata_namespace: openshift-marketplace
+var_csc_spec_targetnamespace: dummy-namespace
+var_csc_spec_packages: federation
+var_csc_spec_csdisplayname: Community Operators
+var_csc_spec_cspublisher: Community
+
+var_og_kind: OperatorGroup
+var_og_metadata_name: "{{ var_csc_metadata_name }}"
+var_og_metadata_namespace: "{{ var_csc_spec_targetnamespace }}"
+var_og_spec_namespace: "{{ var_csc_spec_targetnamespace }}"
+
+var_sub_kind: Subscription
+var_sub_metadata_name: federation-subscription
+var_sub_metadata_namespace: "{{ var_csc_spec_targetnamespace }}"
+var_sub_spec_channel: alpha
+var_sub_spec_name: "{{ var_csc_spec_packages }}"
+var_sub_spec_source: "{{ var_csc_metadata_name }}"
+var_sub_spec_sourcenamespace: "{{ var_csc_spec_targetnamespace }}"
+var_sub_spec_startingcsv: federation.v0.0.10
+var_sub_spec_installplanapproval: Automatic
