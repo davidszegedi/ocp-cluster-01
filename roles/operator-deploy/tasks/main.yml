@@ -1,0 +1,3 @@
+---
+# tasks file for federation-operator
+- include: "install.yml"

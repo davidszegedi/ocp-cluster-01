@@ -2,7 +2,7 @@
 var_csc_kind: CatalogSourceConfig
 var_csc_metadata_name: namespaced-federation
 var_csc_metadata_namespace: openshift-marketplace
-var_csc_spec_targetnamespace: dummy-namespace
+var_csc_spec_targetnamespace: fed-mongo-namespace
 var_csc_spec_packages: federation
 var_csc_spec_csdisplayname: Community Operators
 var_csc_spec_cspublisher: Community
@@ -21,3 +21,9 @@ var_sub_spec_source: "{{ var_csc_metadata_name }}"
 var_sub_spec_sourcenamespace: "{{ var_csc_spec_targetnamespace }}"
 var_sub_spec_startingcsv: federation.v0.0.10
 var_sub_spec_installplanapproval: Automatic
+
+var_demofolder_name: "fed-ocp-demo"
+var_kubefed_operator: cluster01
+var_kubeconfig_path: "~/{{ var_demofolder_name }}/{{ var_kubefed_operator }}/auth/kubeconfig"
+
+install_state: present

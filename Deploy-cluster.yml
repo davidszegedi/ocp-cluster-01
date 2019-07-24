@@ -2,6 +2,9 @@
 - name: "Deploy OpenShift Cluster(s) on AWS"
   hosts: localhost
   gather_facts: no
+  vars:
+    var_cluster_info:
+      - { name: cluster01, region: eu-west-3, deploy: true }
 
   roles:
     - role: "ipi-deploy"

@@ -1,0 +1,64 @@
+---
+- name: "Create or delete k8s namespace {{ namespace }}"
+  k8s:
+    state: "{{ install_state }}"
+    name: "{{ var_csc_spec_targetnamespace }}"
+    api_version: v1
+    kind: Namespace
+
+- name: Create CatalogSourceConfig {{ var_csc_metadata_name }}
+  k8s:
+    state: "{{ install_state }}"
+    definition:
+      apiVersion: operators.coreos.com/v1
+      kind: "{{ var_csc_kind }}"
+      metadata:
+        name: "{{ var_csc_metadata_name }}"
+        namespace: "{{ var_csc_metadata_namespace }}"
+      spec:
+        targetNamespace: "{{ var_csc_spec_targetnamespace }}"
+        packages: "{{ var_csc_spec_packages }}"
+
+- name: Create OperatorGroup {{ var_og_metadata_name }}
+  k8s:
+    state: "{{ install_state }}"
+    definition:
+      apiVersion: operators.coreos.com/v1
+      kind: "{{ var_og_kind }}"
+      metadata:
+        generation: 2
+        name: "{{ var_og_metadata_name }}"
+        namespace: "{{ var_og_metadata_namespace }}"
+      spec:
+        targetNamespaces:
+          - "{{var_og_spec_namespace }}"
+
+    - name: Create CatalogSourceConfig for federation operator
+      k8s:
+        state: "{{ install_state }}"
+        definition:
+          apiVersion: operators.coreos.com/v1
+          kind: CatalogSourceConfig
+          metadata:
+            name: federation-operator
+            namespace: openshift-marketplace
+          spec:
+            targetNamespace: "{{ namespace }}"
+            packages: federation
+      when: install_state == 'present'
+
+    - name: Create Subscription for federation operator
+      k8s:
+        state: "{{ install_state }}"
+        definition:
+          apiVersion: operators.coreos.com/v1alpha1
+          kind: Subscription
+          metadata:
+            name: federation
+            namespace: "{{ namespace }}"
+          spec:
+            channel: alpha
+            name: federation
+            source: federation-operator
+            sourceNamespace: "{{ namespace }}"
+      when: install_state == 'present'
