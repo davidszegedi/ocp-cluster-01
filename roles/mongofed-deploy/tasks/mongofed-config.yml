@@ -19,7 +19,7 @@
 
 - name: Concatenate kubeconfig paths step1
   set_fact:
-    kube_path_1: "{{ kube_path_1 }}:~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
+    kube_path_1: "{{ kube_path_1 | default() }}:~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
   loop: "{{ var_cluster_info }}"
 
 - name: Show kube_path_1 content
