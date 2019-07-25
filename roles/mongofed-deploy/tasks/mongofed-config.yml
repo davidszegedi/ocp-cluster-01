@@ -6,7 +6,22 @@
 
 - name: Backup kubeconfig files
   copy:
-    src: "~/{{ var_demofolder_name }}/{{ var_ocpinstall_filename_extract }}"
-    dest: "~/{{ var_demofolder_name }}/{{ item.name }}"
-    mode: u+x,g+x,o+x
+    src: "~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}/auth/bkp_kubeconfig"
   loop: "{{ var_cluster_info }}"
+
+- name: Modify kubeconfig files
+  replace:
+    path: "~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
+    regexp: 'admin'
+    replace: "{{ item.name }}"
+  loop: "{{ var_cluster_info }}"
+
+- name: Concatenate kubeconfig paths step1
+  set_fact:
+    kube_path_1: "{{ kube_path_1 }}:~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
+  loop: "{{ var_cluster_info }}"
+
+- name: Show kube_path_1 content
+  debug:
+    var: kube_path_1

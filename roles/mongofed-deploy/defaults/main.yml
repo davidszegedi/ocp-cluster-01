@@ -5,3 +5,4 @@ var_cluster_info:
   - { name: cluster02, region: eu-central-1, deploy: true }
   - { name: cluster03, region: eu-west-1, deploy: true }
 var_mongofed_configfolder_name: mongofed
+#var_concat_kubeconfig_path: ""

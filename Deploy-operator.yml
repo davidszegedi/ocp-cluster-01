@@ -1,5 +1,5 @@
 ---
-- name: "Deploy OpenShift Cluster(s) on AWS"
+- name: "Deploy operator on OpenShift Cluster"
   hosts: localhost
   gather_facts: no
 
