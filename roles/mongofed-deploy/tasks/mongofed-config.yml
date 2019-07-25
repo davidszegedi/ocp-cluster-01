@@ -24,7 +24,7 @@
 
 - name: Remove kubeconfig paths step1 first separator
   set_fact:
-    kube_path_1: "{{ 'kube_path_1' | regex_replace('^:(.*)$', '\\1') }}"
+    kube_path_1: "{{ kube_path_1 | regex_replace('^:(.*)$', '\\1') }}"
 
 - name: Show kube_path_1 content
   debug:
