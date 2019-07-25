@@ -22,6 +22,10 @@
     kube_path_1: "{{ kube_path_1 | default() }}:~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
   loop: "{{ var_cluster_info }}"
 
+- name: Remove kubeconfig paths step1 first separator
+  set_fact:
+    kube_path_1: "{{ 'kube_path_1' | regex_replace('^:(.*)$', '\\1') }}"
+
 - name: Show kube_path_1 content
   debug:
-    var: "{{ 'kube_path_1' | regex_replace('^:(.*)$', '\\1') }}"
+    var: kube_path_1
