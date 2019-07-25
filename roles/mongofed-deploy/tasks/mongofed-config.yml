@@ -24,4 +24,4 @@
 
 - name: Show kube_path_1 content
   debug:
-    var: "{{ kube_path_1 | regex_replace('^.','') }}"
+    var: "{{ 'kube_path_1' | regex_replace('^:(.*)$', '\\1') }}"
