@@ -5,3 +5,6 @@
 
   roles:
     - role: "operator-deploy"
+      vars:
+        var_kubefed_operator: cluster01
+        var_csc_spec_targetnamespace: fed-mongo-namespace
