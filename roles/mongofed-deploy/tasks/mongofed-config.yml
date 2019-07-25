@@ -20,7 +20,7 @@
 - name: Concatenate kubeconfig paths
   set_fact:
     kube_concat_path: "{{ kube_concat_path | default() }}:~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
-    kube_concat_name: "{{ kube_concat_name | default(aws) }}-{{ item.name }}"
+    kube_concat_name: "{{ kube_concat_name | default('aws') }}-{{ item.name }}"
   loop: "{{ var_cluster_info }}"
 
 - name: Remove kubeconfig  concat path first separator
