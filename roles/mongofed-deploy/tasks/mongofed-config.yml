@@ -1,0 +1,12 @@
+---
+- name: Create mongofed config folder
+  file:
+    path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}"
+    state: directory
+
+- name: Backup kubeconfig files
+  copy:
+    src: "~/{{ var_demofolder_name }}/{{ var_ocpinstall_filename_extract }}"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}"
+    mode: u+x,g+x,o+x
+  loop: "{{ var_cluster_info }}"
