@@ -5,6 +5,7 @@ var_cluster_info:
   - { name: cluster03, region: eu-west-1, deploy: true }
 
 var_demofolder_name: fed-ocp-demo
+var_certdir_name: certs
 var_mongofed_configfolder_name: mongofed
 var_kubefed_operator: cluster01
 
@@ -23,3 +24,9 @@ var_fed_obj_list:
   - services
   - persistentvolumeclaims
   - configmaps
+
+var_mongodb_pem_data: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
+var_ca_pem_data: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca.pem"
+
+var_mongo_db_external_port: 27017
+var_mongo_db_internal_port: 27017
