@@ -67,7 +67,7 @@
     namespace: "{{ var_obj_spec_targetnamespace }}"
     state: "{{ install_state }}"
     definition:
-      apiVersion: kubefed-operator:v0.1.0-rc3
+      apiVersion: operator.kubefed.io/v1alpha1
       kind: "{{ var_obj_kind }}"
       metadata:
         name: "{{ var_obj_metadata_name }}"
