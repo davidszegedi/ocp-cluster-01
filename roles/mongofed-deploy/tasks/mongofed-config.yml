@@ -39,8 +39,8 @@
   shell: "export KUBECONFIG={{ kube_concat_path }}; oc config view --flatten > {{ kube_concat_name }}"
   args:
     chdir: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}"
-  environment:
-    KUBECONFIG: "{{ kube_concat_path }}"
+#  environment:
+#    KUBECONFIG: "{{ kube_concat_path }}"
   register: occfgv_flatten
 
 - name: Show occfgv_flatten content
