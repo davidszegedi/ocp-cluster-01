@@ -30,8 +30,8 @@ var_fed_obj_list:
   - persistentvolumeclaims
   - configmaps
 
-var_mongodb_pem_data: "{{ lookup('file', mongodb_pem|default(~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem)) | b64encode }}"
-var_ca_pem_data: "{{ lookup('file', ca_pem|default(~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca.pem)) | b64encode }}"
+var_mongodb_pem_data: "{{ lookup('file', mongodb_pem|default("~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem)") | b64encode }}"
+var_ca_pem_data: "{{ lookup('file', ca_pem|default("~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca.pem)") | b64encode }}"
 
 var_mongo_db_external_port: 27017
 var_mongo_db_internal_port: 27017
