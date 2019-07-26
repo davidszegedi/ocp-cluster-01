@@ -10,7 +10,7 @@ var_kubefed_operator: cluster01
 
 install_state: present
 
-var_obj_kind: KubeFed
+var_obj_kind: kf
 var_obj_metadata_name: kubefed-resource
 var_obj_spec_targetnamespace: fed-mongo-namespace
 
