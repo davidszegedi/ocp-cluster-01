@@ -3,7 +3,7 @@ var_csc_kind: CatalogSourceConfig
 var_csc_metadata_name: namespaced-federation
 var_csc_metadata_namespace: openshift-marketplace
 var_csc_spec_targetnamespace: fed-mongo-namespace
-var_csc_spec_packages: federation
+var_csc_spec_packages: kubefed-operator
 var_csc_spec_csdisplayname: Community Operators
 var_csc_spec_cspublisher: Community
 
