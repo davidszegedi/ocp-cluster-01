@@ -80,19 +80,19 @@
 - name: "Generate 01-mongo-federated-secret.yaml"
   template:
     src: 01-mongo-federated-secret.yaml.j2
-    dest: "{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/01-mongo-federated-secret.yaml"
+    dest: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/01-mongo-federated-secret.yaml"
 
 - name: "Generate 02-mongo-federated-service.yaml.j2"
   template:
     src: 02-mongo-federated-service.yaml.j2
-    dest: "{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/02-mongo-federated-service.yaml"
+    dest: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/02-mongo-federated-service.yaml"
 
 - name: "Generate 03-mongo-federated-pvc.yaml"
   template:
     src: 03-mongo-federated-pvc.yaml.j2
-    dest: "{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/03-mongo-federated-pvc.yaml"
+    dest: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/03-mongo-federated-pvc.yaml"
 
 - name: "Generate 04-mongo-federated-deployment-rs.yaml"
   template:
     src: 04-mongo-federated-deployment-rs.yaml.j2
-    dest: "{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/04-mongo-federated-deployment-rs.yaml"
+    dest: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/04-mongo-federated-deployment-rs.yaml"
