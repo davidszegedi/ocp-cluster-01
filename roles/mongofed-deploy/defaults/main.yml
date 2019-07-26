@@ -4,6 +4,11 @@ var_cluster_info:
   - { name: cluster02, region: eu-central-1, deploy: true }
   - { name: cluster03, region: eu-west-1, deploy: true }
 
+var_cluster_list:
+  - cluster01
+  - cluster02
+  - cluster03
+
 var_demofolder_name: fed-ocp-demo
 var_certdir_name: certs
 var_mongofed_configfolder_name: mongofed

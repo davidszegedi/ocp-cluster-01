@@ -81,6 +81,6 @@ spec:
               type: array
   placement:
     clusterNames:
-    {% for cluster in var_cluster_info.name -%}
+    {% for cluster in var_cluster_list -%}
      - {{ cluster }}
     {% endfor %}
