@@ -110,6 +110,6 @@
   shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_obj_spec_targetnamespace }} create -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/04-mongo-federated-deployment-rs.yaml"
 
 - name: Create routes
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_cluster_info.name }} -n {{ var_obj_spec_targetnamespace }} create route passthrough mongo --service={{ var_mongofed_service }} --port={{ var_mongo_db_external_port }} --hostname=mongo-{{ var_cluster_info.name }}.apps.{{ var_cluster_info.name }}.rheventdemo.com"
+  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_cluster_info.name }} -n {{ var_obj_spec_targetnamespace }} create route passthrough mongo --service={{ var_mongofed_service }} --port={{ var_mongo_db_external_port }} --hostname=mongo-{{ item.name }}.apps.{{ item.name }}.rheventdemo.com"
   loop: "{{ var_cluster_info }}"
   register: fedroute
