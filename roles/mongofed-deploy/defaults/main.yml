@@ -1,8 +1,25 @@
 ---
-var_demofolder_name: "fed-ocp-demo"
 var_cluster_info:
   - { name: cluster01, region: eu-west-3, deploy: true }
   - { name: cluster02, region: eu-central-1, deploy: true }
   - { name: cluster03, region: eu-west-1, deploy: true }
+
+var_demofolder_name: fed-ocp-demo
 var_mongofed_configfolder_name: mongofed
-#var_concat_kubeconfig_path: ""
+var_kubefed_operator: cluster01
+
+install_state: present
+
+var_obj_kind: KubeFed
+var_obj_metadata_name: kubefed-resource
+var_obj_spec_targetnamespace: fed-mongo-namespace
+
+var_fed_obj_list:
+  - namespaces
+  - deployments.apps
+  - ingresses.extensions
+  - secrets
+  - serviceaccounts
+  - services
+  - persistentvolumeclaims
+  - configmaps
