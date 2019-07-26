@@ -67,7 +67,7 @@
     context: "{{ var_kubefed_operator }}"
     state: "{{ install_state }}"
     definition:
-      apiVersion: operator.kubefed.io/v1alpha1
+      apiVersion: operator.kubefed.io
       kind: "{{ var_obj_kind }}"
       metadata:
         name: "{{ var_obj_metadata_name }}"
