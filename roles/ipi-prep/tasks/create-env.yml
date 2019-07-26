@@ -5,19 +5,24 @@
     state: directory
   loop: "{{ var_cluster_info }}"
 
+- name: Create utils folders
+  file:
+    path: "~/{{ var_demofolder_name }}/utils"
+    state: directory
+
 - name: Get {{ var_ocpinstall_filename }} installer file
   get_url:
     url: "{{ var_ocpinstall_url }}{{ var_ocpinstall_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
+    dest: "~/{{ var_demofolder_name }}/utils"
 
 - name: Extract ocp installer
   unarchive:
-    src: "~/{{ var_demofolder_name }}/{{ var_ocpinstall_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
+    src: "~/{{ var_demofolder_name }}/utils/{{ var_ocpinstall_filename }}"
+    dest: "~/{{ var_demofolder_name }}/utils"
 
 - name: Copy {{ var_ocpinstall_filename_extract }} to clusters folders
   copy:
-    src: "~/{{ var_demofolder_name }}/{{ var_ocpinstall_filename_extract }}"
+    src: "~/{{ var_demofolder_name }}/utils/{{ var_ocpinstall_filename_extract }}"
     dest: "~/{{ var_demofolder_name }}/{{ item.name }}"
     mode: u+x,g+x,o+x
   loop: "{{ var_cluster_info }}"

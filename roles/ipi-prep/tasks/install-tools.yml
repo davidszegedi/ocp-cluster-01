@@ -2,41 +2,41 @@
 - name: Get {{ var_occlient_filename }} file
   get_url:
     url: "{{ var_ocpinstall_url }}{{ var_occlient_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
+    dest: "~/{{ var_demofolder_name }}/utils"
 
 - name: Extract oc client
   unarchive:
-    src: "~/{{ var_demofolder_name }}/{{ var_occlient_filename }}"
+    src: "~/{{ var_demofolder_name }}/utils/{{ var_occlient_filename }}"
     dest: "~/bin/"
 
 - name: Get {{ var_kubefedctl_filename }} file
   get_url:
     url: "{{ var_kubefedctl_url }}{{ var_kubefedctl_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
+    dest: "~/{{ var_demofolder_name }}/utils"
 
 - name: Extract kubefedctl client
   unarchive:
-    src: "~/{{ var_demofolder_name }}/{{ var_kubefedctl_filename }}"
+    src: "~/{{ var_demofolder_name }}/utils/{{ var_kubefedctl_filename }}"
     dest: "~/bin/"
 
 - name: Get {{ var_cfssl_filename }} file
   get_url:
     url: "{{ var_cfssl_path }}{{ var_cfssl_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
+    dest: "~/{{ var_demofolder_name }}/utils"
 
 - name: Copy cfssl to bin folder
   copy:
-    src: "~/{{ var_demofolder_name }}/{{ var_cfssl_filename }}"
+    src: "~/{{ var_demofolder_name }}/utils/{{ var_cfssl_filename }}"
     dest: "~/bin/cfssl"
     mode: u+x,g+x,o+x
 
 - name: Get {{ var_cfssljson_filename }} file
   get_url:
     url: "{{ var_cfssl_path }}{{ var_cfssljson_filename }}"
-    dest: "~/{{ var_demofolder_name }}/"
+    dest: "~/{{ var_demofolder_name }}/utils"
 
 - name: Copy cfssljson to bin folder
   copy:
-    src: "~/{{ var_demofolder_name }}/{{ var_cfssljson_filename }}"
+    src: "~/{{ var_demofolder_name }}/utils/{{ var_cfssljson_filename }}"
     dest: "~/bin/cfssljson"
     mode: u+x,g+x,o+x
