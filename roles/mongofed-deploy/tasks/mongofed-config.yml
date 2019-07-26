@@ -67,12 +67,13 @@
     context: "{{ var_kubefed_operator }}"
     state: "{{ install_state }}"
     definition:
-      apiVersion: operator.kubefed.io
+      apiVersion: operator.kubefed.io/v1alpha1
       kind: "{{ var_obj_kind }}"
       metadata:
         name: "{{ var_obj_metadata_name }}"
       spec:
         targetNamespace: "{{ var_obj_spec_targetnamespace }}"
+        scope: Namespaced
 
 #- name: Federate OpenShift clusters
 #  shell: "kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 --kubefed-namespace={{ var_obj_spec_targetnamespace }}"
