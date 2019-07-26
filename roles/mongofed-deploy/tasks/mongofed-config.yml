@@ -64,7 +64,7 @@
 - name: Enable the Kubefed Controller Manager
   k8s:
     kubeconfig: "{{ kube_concat_path }}"
-    context: "{{ var_kubefed_operator }}"
+    namespace: "{{ var_obj_spec_targetnamespace }}"
     state: "{{ install_state }}"
     definition:
       apiVersion: kubefed-operator:v0.1.0-rc3
@@ -72,7 +72,6 @@
       metadata:
         name: "{{ var_obj_metadata_name }}"
       spec:
-        targetNamespace: "{{ var_obj_spec_targetnamespace }}"
         scope: Namespaced
 
 #- name: Federate OpenShift clusters
