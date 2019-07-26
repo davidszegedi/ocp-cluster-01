@@ -18,7 +18,7 @@ spec:
       selector:
         name: mongo
   placement:
-    clusters:
+    clusterNames:
     {% for cluster in var_cluster_list -%}
      - {{ cluster }}
     {% endfor %}

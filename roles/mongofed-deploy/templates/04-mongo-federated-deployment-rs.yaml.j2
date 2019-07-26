@@ -80,7 +80,7 @@ spec:
                   fieldPath: metadata.labels
               type: array
   placement:
-    clusters:
+    clusterNames:
     {% for cluster in var_cluster_list -%}
      - {{ cluster }}
     {% endfor %}
