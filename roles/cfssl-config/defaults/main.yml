@@ -3,7 +3,7 @@
 var_demofolder_name: "fed-ocp-demo"
 var_certdir_name: "certs"
 var_mongofed_service: mongodb
-var_mongofed_namespace: federated-mongo
+var_mongofed_namespace: fed-mongo-namespace
 
 var_hosts_list:
   - localhost

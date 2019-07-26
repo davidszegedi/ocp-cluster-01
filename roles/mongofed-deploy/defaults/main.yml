@@ -35,3 +35,6 @@ var_ca_pem_data: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca.pem"
 
 var_mongo_db_external_port: 27017
 var_mongo_db_internal_port: 27017
+
+var_mongofed_service: mongodb
+var_mongofed_namespace: "{{ var_obj_spec_targetnamespace }}"
