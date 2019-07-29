@@ -24,12 +24,6 @@
     state: absent
   loop: "{{ var_cluster_info }}"
 
-- name: Remove .openshift_install_state.json file
-  file:
-    path: "~/{{ var_demofolder_name }}/{{ item.name }}/.openshift_install_state.json"
-    state: absent
-  loop: "{{ var_cluster_info }}"
-
 - name: Remove terraform.tfstate file
   file:
     path: "~/{{ var_demofolder_name }}/{{ item.name }}/terraform.tfstate"
