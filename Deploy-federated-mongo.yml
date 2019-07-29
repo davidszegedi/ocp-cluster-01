@@ -9,4 +9,4 @@
 
   roles:
     - role: "operator-deploy"
-    - roles: "cfssl-config"
+    - role: "cfssl-config"
