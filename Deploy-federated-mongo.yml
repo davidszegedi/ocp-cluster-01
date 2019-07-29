@@ -1,0 +1,12 @@
+---
+- name: "Deploy Federated MongoDB on OpenShift clusters"
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    var_kubefed_operator: cluster01
+    var_csc_spec_targetnamespace: fed-mongo-namespace
+
+  roles:
+    - role: "operator-deploy"
+    - roles: "cfssl-config"
