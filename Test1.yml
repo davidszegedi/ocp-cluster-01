@@ -14,8 +14,8 @@
   tasks:
     - name: show var_mongodb_pem_data Content
       debug:
-        var: var_mongodb_pem_data_path
+        var: var_mongodb_pem_data
 
     - name: show var_ca_pem_data Content
       debug:
-        var: var_ca_pem_data_path
+        var: var_ca_pem_data
