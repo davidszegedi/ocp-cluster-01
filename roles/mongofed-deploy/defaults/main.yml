@@ -30,8 +30,10 @@ var_fed_obj_list:
   - persistentvolumeclaims
   - configmaps
 
-var_mongodb_pem_data: "{{ lookup('file', mongodb_pem|default('/home/user1/fed-ocp-demo/certs/mongo.pem')) | b64encode }}"
-var_ca_pem_data: "{{ lookup('file', ca_pem|default('/home/user1/fed-ocp-demo/certs/ca.pem')) | b64encode }}"
+var_mongodb_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
+var_ca_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
+var_mongodb_pem_data: "{{ lookup('file', 'var_mongodb_pem_data_path') | b64encode }}"
+var_ca_pem_data: "{{ lookup('file', 'var_ca_pem_data_path') | b64encode }}"
 
 var_mongo_db_external_port: 27017
 var_mongo_db_internal_port: 27017

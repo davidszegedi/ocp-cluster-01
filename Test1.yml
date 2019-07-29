@@ -4,11 +4,12 @@
   gather_facts: no
 
   vars:
-    var_path_1: "/home/user1/fed-ocp-demo/certs/mongo.pem"
-    var_path_2: "/home/user1/fed-ocp-demo/certs/ca.pem"
-    #var_mongodb_pem_data: "{{ lookup('file', '/home/user1/fed-ocp-demo/certs/mongo.pem')) | b64encode }}"
-    var_mongodb_pem_data: "{{ lookup('file', var_path_2 ) | b64encode }}"
-    var_ca_pem_data: "{{ lookup('file', ca_pem|default('/home/user1/fed-ocp-demo/certs/ca.pem')) | b64encode }}"
+    var_demofolder_name: fed-ocp-demo
+    var_certdir_name: certs
+    var_mongodb_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
+    var_ca_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
+    var_mongodb_pem_data: "{{ lookup('file', 'var_mongodb_pem_data_path') | b64encode }}"
+    var_ca_pem_data: "{{ lookup('file', 'var_ca_pem_data_path') | b64encode }}"
 
   tasks:
     - name: show var_mongodb_pem_data Content
