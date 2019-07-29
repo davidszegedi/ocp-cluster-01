@@ -6,8 +6,8 @@
   vars:
     var_demofolder_name: fed-ocp-demo
     var_certdir_name: certs
-    #var_mongodb_pem_data_path: "/home/user1/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
-    var_mongodb_pem_data_path: /home/user1/fed-ocp-demo/certs/mongo.pem
+    var_mongodb_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
+    #var_mongodb_pem_data_path: /home/user1/fed-ocp-demo/certs/mongo.pem
     var_ca_pem_data_path: "/home/user1/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
     var_mongodb_pem_data: "{{ lookup('file', var_mongodb_pem_data_path) | b64encode }}"
     var_ca_pem_data: "{{ lookup('file', 'var_ca_pem_data_path') | b64encode }}"
