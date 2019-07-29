@@ -18,7 +18,7 @@ install_state: present
 
 var_obj_kind: KubeFed
 var_obj_metadata_name: kubefed-resource
-var_obj_spec_targetnamespace: fed-mongo-namespace
+var_obj_spec_targetnamespace: "{{ var_csc_spec_targetnamespace }}"
 
 var_fed_obj_list:
   - namespaces

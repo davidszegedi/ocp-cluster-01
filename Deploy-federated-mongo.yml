@@ -8,5 +8,6 @@
     var_csc_spec_targetnamespace: fed-mongo-namespace
 
   roles:
-    - role: "operator-deploy"
-    - role: "cfssl-config"
+    #- role: "operator-deploy"
+    #- role: "cfssl-config"
+    - role: "mongofed-deploy"

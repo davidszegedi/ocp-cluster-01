@@ -1,0 +1,17 @@
+---
+- name: "Prepare environment for federated MongoDB deployment"
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    var_mongodb_pem_data: "{{ lookup('file', mongodb_pem|default('/home/user1/fed-ocp-demo/certs/mongo.pem')) | b64encode }}"
+    var_ca_pem_data: "{{ lookup('file', ca_pem|default('/home/user1/fed-ocp-demo/certs/ca.pem')) | b64encode }}"
+
+  tasks:
+    - name: show var_mongodb_pem_data Content
+      debug:
+        var: var_mongodb_pem_data
+
+    - name: show var_ca_pem_data Content
+      debug:
+        var: var_ca_pem_data
