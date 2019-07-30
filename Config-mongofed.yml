@@ -7,6 +7,7 @@
     kube_concat_name: aws-cluster01-cluster02-cluster03
     var_kubefed_operator: cluster01
     var_csc_spec_targetnamespace: fed-mongo-namespace
+    var_oc_operation: create
 
   roles:
     - role: "mongofed-deploy"
