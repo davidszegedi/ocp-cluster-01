@@ -1,2 +1,3 @@
 ---
-- include: test-mongofed-config.yml
+- include: mongofed-config.yml
+#- include: mongofed-deploy.yml

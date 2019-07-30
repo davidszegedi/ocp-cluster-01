@@ -1,8 +1,5 @@
-- name: Update kubeconfig concat path
-  set_fact:
-    kube_concat_path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/{{ kube_concat_name }}"
 
-
+---
 - name: Create secret with admin/access credentials
   shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_obj_spec_targetnamespace }} create -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/01-mongo-federated-secret.yaml"
   #ignore_errors: yes

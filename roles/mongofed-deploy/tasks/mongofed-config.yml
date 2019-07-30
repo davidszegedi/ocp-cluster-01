@@ -39,6 +39,10 @@
   set_fact:
     kube_concat_path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/{{ kube_concat_name }}"
 
+- name: Wait for kubefed operator to be available
+  pause:
+    seconds: 30
+
 - name: Enable the Kubefed Controller Manager
   k8s:
     kubeconfig: "{{ kube_concat_path }}"
@@ -51,15 +55,17 @@
       metadata:
         name: "{{ var_obj_metadata_name }}"
       spec:
-        scope: Namespaced
+        scope: "{{ var_kubefed_scope }}"
 
 - name: Enable federating of objects
-  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }} --kubefed-namespace {{ var_obj_spec_targetnamespace }}"
+  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }}"
+  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }} --kubefed-namespace {{ var_obj_spec_targetnamespace }}"
   loop: "{{ var_fed_obj_list }}"
   register: fedobj
 
 - name: Federate OpenShift clusters
-  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 --kubefed-namespace={{ var_obj_spec_targetnamespace }}"
+  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 }}"
+  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 --kubefed-namespace={{ var_obj_spec_targetnamespace }}"
   loop: "{{ var_cluster_info }}"
   register: fedocp
 
@@ -82,24 +88,3 @@
   template:
     src: 04-mongo-federated-deployment-rs.yaml.j2
     dest: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/04-mongo-federated-deployment-rs.yaml"
-
-- name: Create secret with admin/access credentials
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_obj_spec_targetnamespace }} create -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/01-mongo-federated-secret.yaml"
-  #ignore_errors: yes
-
-- name: Create service
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_obj_spec_targetnamespace }} create -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/02-mongo-federated-service.yaml"
-  #ignore_errors: yes
-
-- name: Create persistent volume claim
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_obj_spec_targetnamespace }} create -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/03-mongo-federated-pvc.yaml"
-  #ignore_errors: yes
-
-- name: Create deployment
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_obj_spec_targetnamespace }} create -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/04-mongo-federated-deployment-rs.yaml"
-  #ignore_errors: yes
-
-- name: Create routes
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ item.name }} -n {{ var_obj_spec_targetnamespace }} create route passthrough mongo --service={{ var_mongofed_service }} --port={{ var_mongo_db_external_port }} --hostname=mongo-{{ item.name }}.apps.{{ item.name }}.rheventdemo.com"
-  loop: "{{ var_cluster_info }}"
-  register: fedroute
