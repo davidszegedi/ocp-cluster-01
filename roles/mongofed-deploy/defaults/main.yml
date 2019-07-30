@@ -40,3 +40,6 @@ var_mongo_db_internal_port: 27017
 
 var_mongofed_service: mongodb
 var_mongofed_namespace: "{{ var_obj_spec_targetnamespace }}"
+
+var_primary_node: mongo-cluster01.apps.cluster01.rheventdemo.com:443
+var_replica_members: mongo-cluster01.apps.cluster01.rheventdemo.com:443,mongo-cluster02.apps.cluster02.rheventdemo.com:443,mongo-cluster03.apps.cluster03.rheventdemo.com:443

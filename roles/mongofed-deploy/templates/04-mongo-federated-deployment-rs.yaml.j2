@@ -52,12 +52,12 @@ spec:
             - name: MONGODB_REPLICA_NAME
               value: "rs0"
             - name: PRIMARY_NODE
-              value: "mongo-cluster01.apps.cluster01.rheventdemo.com:443"
+              value: "{{ var_primary_node }}"
             - name: REPLICA_MEMBERS
-              value: "mongo-cluster01.apps.cluster01.rheventdemo.com:443,mongo-cluster02.apps.cluster02.rheventdemo.com:443,mongo-cluster03.apps.cluster03.rheventdemo.com:443"
+              value: "{{ var_replica_members }}"
             ports:
             - name: mongo
-              containerPort: 27017
+              containerPort: "{{ var_mongo_db_internal_port }}"
             volumeMounts:
             - mountPath: /data/db
               name: mongodb-data
@@ -80,7 +80,7 @@ spec:
                   fieldPath: metadata.labels
               type: array
   placement:
-    clusterNames:
+    clusters:
     {% for cluster in var_cluster_list -%}
-     - {{ cluster }}
+     - name: {{ cluster }}
     {% endfor %}
