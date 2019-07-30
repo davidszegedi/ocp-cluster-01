@@ -1,0 +1,46 @@
+---
+- name: Create mongofed config folder
+  file:
+    path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}"
+    state: directory
+
+- name: Backup kubeconfig files
+  copy:
+    src: "~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
+    dest: "~/{{ var_demofolder_name }}/{{ item.name }}/auth/bkp_kubeconfig"
+  loop: "{{ var_cluster_info }}"
+
+- name: Modify kubeconfig files
+  replace:
+    path: "~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
+    regexp: 'admin'
+    replace: "{{ item.name }}"
+  loop: "{{ var_cluster_info }}"
+
+- name: Concatenate kubeconfig paths
+  set_fact:
+    kube_concat_path: "{{ kube_concat_path | default() }}:~/{{ var_demofolder_name }}/{{ item.name }}/auth/kubeconfig"
+    kube_concat_name: "{{ kube_concat_name | default('aws') }}-{{ item.name }}"
+  loop: "{{ var_cluster_info }}"
+
+- name: Remove kubeconfig concat path first separator
+  set_fact:
+    kube_concat_path: "{{ kube_concat_path | regex_replace('^:(.*)$', '\\1') }}"
+
+- name: Flatten kube concat path
+  shell: "export KUBECONFIG={{ kube_concat_path }}; oc config view --flatten > {{ kube_concat_name }}"
+  args:
+    chdir: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}"
+#  environment:
+#    KUBECONFIG: "{{ kube_concat_path }}"
+  register: occfgv_flatten
+
+- name: Update kubeconfig concat path
+  set_fact:
+    kube_concat_path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/{{ kube_concat_name }}"
+
+#- name: Set context "{{ var_kubefed_operator }}"
+#  shell: "export KUBECONFIG={{ kube_concat_path }}; oc config set-context {{ var_kubefed_operator }}"
+#  environment:
+#    KUBECONFIG: "{{ kube_concat_path }}"
+#  register: occfgsc
