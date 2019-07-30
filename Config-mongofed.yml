@@ -4,6 +4,8 @@
   gather_facts: no
   vars:
     kube_concat_name: aws-cluster01-cluster02-cluster03
+    var_kubefed_operator: cluster01
+    var_csc_spec_targetnamespace: fed-mongo-namespace
 
   roles:
     - role: "mongofed-deploy"
