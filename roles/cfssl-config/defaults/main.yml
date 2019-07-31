@@ -3,8 +3,8 @@
 var_demofolder_name: "fed-ocp-demo"
 var_certdir_name: "certs"
 var_mongofed_service: mongo
-#var_mongofed_namespace: "{{ var_csc_spec_targetnamespace }}"
-var_mongofed_namespace: mongo-namespace
+var_mongofed_namespace: "{{ var_csc_spec_targetnamespace }}"
+#var_mongofed_namespace: mongo-namespace
 
 var_hosts_list:
   - localhost
