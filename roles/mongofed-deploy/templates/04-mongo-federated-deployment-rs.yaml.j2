@@ -50,14 +50,14 @@ spec:
                   key: keyfile-value
                   name: mongodb-secret
             - name: MONGODB_REPLICA_NAME
-              value: "rs0"
+              value: rs0
             - name: PRIMARY_NODE
-              value: "{{ var_primary_node }}"
+              value: {{ var_primary_node }}
             - name: REPLICA_MEMBERS
-              value: "{{ var_replica_members }}"
+              value: {{ var_replica_members }}
             ports:
             - name: mongo
-              containerPort: "{{ var_mongo_db_internal_port }}"
+              containerPort: {{ var_mongo_db_internal_port }}
             volumeMounts:
             - mountPath: /data/db
               name: mongodb-data
@@ -75,7 +75,7 @@ spec:
           - name: pod-info
             downwardAPI:
               items:
-              - path: "labels"
+              - path: labels
                 fieldRef:
                   fieldPath: metadata.labels
               type: array
