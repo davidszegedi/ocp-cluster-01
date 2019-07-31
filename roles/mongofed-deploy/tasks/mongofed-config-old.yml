@@ -39,6 +39,36 @@
   set_fact:
     kube_concat_path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/{{ kube_concat_name }}"
 
+- name: Wait for kubefed operator to be available
+  pause:
+    seconds: 30
+
+- name: Enable the Kubefed Controller Manager
+  k8s:
+    kubeconfig: "{{ kube_concat_path }}"
+    namespace: "{{ var_obj_spec_targetnamespace }}"
+    context: "{{ var_kubefed_operator }}"
+    state: "{{ install_state }}"
+    definition:
+      apiVersion: operator.kubefed.io/v1alpha1
+      kind: "{{ var_obj_kind }}"
+      metadata:
+        name: "{{ var_obj_metadata_name }}"
+      spec:
+        scope: "{{ var_kubefed_scope }}"
+
+- name: Enable federating of objects
+  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }}"
+  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }} --kubefed-namespace {{ var_obj_spec_targetnamespace }}"
+  loop: "{{ var_fed_obj_list }}"
+  register: fedobj
+
+- name: Federate OpenShift clusters
+  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 }}"
+  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 --kubefed-namespace={{ var_obj_spec_targetnamespace }}"
+  loop: "{{ var_cluster_info }}"
+  register: fedocp
+
 - name: "Generate 01-mongo-federated-secret.yaml"
   template:
     src: 01-mongo-federated-secret.yaml.j2
