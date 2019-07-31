@@ -3,11 +3,11 @@
   hosts: localhost
   gather_facts: no
   vars:
-    kube_concat_path: "~/fed-ocp-demo/mongofed/aws-cluster01-cluster02-cluster03"
-    kube_concat_name: aws-cluster01-cluster02-cluster03
-    var_kubefed_operator: cluster01
-    var_csc_spec_targetnamespace: fed-mongo-namespace
-    var_oc_operation: create
+    #kube_concat_path: "~/fed-ocp-demo/mongofed/aws-cluster01-cluster02-cluster03"
+    #kube_concat_name: aws-cluster01-cluster02-cluster03
+    #var_kubefed_operator: cluster01
+    #var_csc_spec_targetnamespace: fed-mongo-namespace
+    #var_oc_operation: create
 
   roles:
     - role: "mongofed-deploy"
