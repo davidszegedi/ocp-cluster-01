@@ -58,14 +58,14 @@
         scope: "{{ var_kubefed_scope }}"
 
 - name: Enable federating of objects
-  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }}"
-  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }} --kubefed-namespace {{ var_obj_spec_targetnamespace }}"
+  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }}"
+  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl enable {{ item }} --kubefed-namespace {{ var_obj_spec_targetnamespace }}"
   loop: "{{ var_fed_obj_list }}"
   register: fedobj
 
 - name: Federate OpenShift clusters
-  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 }}"
-  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 --kubefed-namespace={{ var_obj_spec_targetnamespace }}"
+  #shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 }}"
+  shell: "export KUBECONFIG={{ kube_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 --kubefed-namespace={{ var_obj_spec_targetnamespace }}"
   loop: "{{ var_cluster_info }}"
   register: fedocp
 
