@@ -16,16 +16,16 @@
     dest: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca-csr.json"
     mode: '0644'
 
-- name: "Generate ca.crt"
-  shell: "cfssl gencert -initca ca-csr.json | cfssljson -bare ca"
-  args:
-    chdir: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}"
-
 - name: "Create mongodb-csr request"
   template:
     src: mongodb-csr.json.j2
     dest: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongodb-csr.json"
     mode: '0644'
+
+- name: "Generate ca.crt"
+  shell: "cfssl gencert -initca ca-csr.json | cfssljson -bare ca"
+  args:
+    chdir: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}"
 
 - name: "Generate mongodb crt"
   shell: "cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -hostname={{ var_hosts_list | join(',') }} -profile={{ ca_profile }} mongodb-csr.json | cfssljson -bare mongodb"
