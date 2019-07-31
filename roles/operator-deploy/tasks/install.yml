@@ -72,10 +72,14 @@
       spec:
         scope: "{{ var_kubefed_scope }}"
 
-- name: Enable federating of objects
+- name: Enable federated ressources
   shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; kubefedctl enable {{ item }}"
   loop: "{{ var_fed_obj_list }}"
   register: fedobj
+
+- name: Wait for federated ressources to be available
+  pause:
+    seconds: 30
 
 - name: Federate OpenShift clusters
   shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 }}"
