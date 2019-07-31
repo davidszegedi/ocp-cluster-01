@@ -47,8 +47,9 @@ var_fed_obj_list:
 var_kube_concat_name: kube-concat-auth
 var_demofolder_name: fed-ocp-demo
 var_mongofed_configfolder_name: mongofed
+var_kubeconfigfolder_name: auth-fed
 var_kubefed_operator: cluster01
 var_kubeconfig_path: "~/{{ var_demofolder_name }}/{{ var_kubefed_operator }}/auth/kubeconfig"
-var_kubeconfig_concat_path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/{{ var_kube_concat_name }}"
+var_kubeconfig_concat_path: "~/{{ var_demofolder_name }}/{{ var_kubeconfigfolder_name }}/{{ var_kube_concat_name }}"
 
 install_state: present

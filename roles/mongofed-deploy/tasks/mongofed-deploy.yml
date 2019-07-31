@@ -1,22 +1,35 @@
 
 ---
+- name: Create k8s namespace {{ var_mongofed_namespace }}
+  k8s:
+    kubeconfig: "{{ var_kubeconfig_concat_path }}"
+    state: "{{ install_state }}"
+    context: "{{ var_kubefed_operator }}"
+    name: "{{ var_mongofed_namespace }}"
+    api_version: v1
+    kind: Namespace
+
+- name: Federate namespace {{ var_mongofed_namespace }}
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; kubefedctl federate namespace {{ var_mongofed_namespace }} --host-cluster-context {{ var_kubefed_operator }}"
+  #ignore_errors: yes
+
 - name: Create secret with admin/access credentials
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/01-mongo-federated-secret.yaml"
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/01-mongo-federated-secret.yaml"
   #ignore_errors: yes
 
 - name: Create service
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/02-mongo-federated-service.yaml"
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/02-mongo-federated-service.yaml"
   #ignore_errors: yes
 
 - name: Create persistent volume claim
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/03-mongo-federated-pvc.yaml"
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/03-mongo-federated-pvc.yaml"
   #ignore_errors: yes
 
 - name: Create deployment
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/04-mongo-federated-deployment-rs.yaml"
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; oc --context={{ var_kubefed_operator }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} -f ~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/04-mongo-federated-deployment-rs.yaml"
   #ignore_errors: yes
 
 - name: Create routes
-  shell: "export KUBECONFIG={{ kube_concat_path }}; oc --context={{ item.name }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} route passthrough mongo --service={{ var_mongofed_service }} --port={{ var_mongo_db_external_port }} --hostname=mongo-{{ item.name }}.apps.{{ item.name }}.rheventdemo.com"
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; oc --context={{ item.name }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} route passthrough mongo --service={{ var_mongofed_service }} --port={{ var_mongo_db_external_port }} --hostname=mongo-{{ item.name }}.apps.{{ item.name }}.rheventdemo.com"
   loop: "{{ var_cluster_info }}"
   register: fedroute
