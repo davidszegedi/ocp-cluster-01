@@ -34,6 +34,7 @@ var_fed_obj_list:
   - services
   - persistentvolumeclaims
   - configmaps
+  - scc
 
 var_mongodb_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
 var_ca_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca.pem"
