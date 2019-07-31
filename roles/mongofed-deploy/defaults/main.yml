@@ -16,25 +16,22 @@ var_kubefed_operator: cluster01
 
 install_state: present
 
-var_kubefed_scope: Cluster
-var_kubefed_scope: Namespaced
-#var_mongofed_namespace: mongo-namespace
+#var_kubefed_scope: Cluster
+#var_kubefed_scope: Namespaced
+#ar_obj_kind: KubeFed
+#var_obj_metadata_name: kubefed-resource
+#var_obj_spec_targetnamespace: "{{ var_csc_spec_targetnamespace }}"
 
-var_obj_kind: KubeFed
-var_obj_metadata_name: kubefed-resource
-var_obj_spec_targetnamespace: "{{ var_csc_spec_targetnamespace }}"
-
-
-var_fed_obj_list:
-  - namespaces
-  - deployments.apps
-  - ingresses.extensions
-  - secrets
-  - serviceaccounts
-  - services
-  - persistentvolumeclaims
-  - configmaps
-  - scc
+#var_fed_obj_list:
+#  - namespaces
+#  - deployments.apps
+#  - ingresses.extensions
+#  - secrets
+#  - serviceaccounts
+#  - services
+#  - persistentvolumeclaims
+#  - configmaps
+#  - scc
 
 var_mongodb_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
 var_ca_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca.pem"

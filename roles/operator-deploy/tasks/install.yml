@@ -53,3 +53,31 @@
         sourceNamespace: "{{ var_sub_spec_sourcenamespace }}"
         startingCSV: "{{ var_sub_spec_startingcsv }}"
         installPlanApproval: "{{ var_sub_spec_installplanapproval }}"
+
+- name: Wait for kubefed operator to be available
+  pause:
+    seconds: 30
+
+- name: Enable the Kubefed Controller Manager
+  k8s:
+    kubeconfig: "{{ var_kubeconfig_concat_path }}"
+    namespace: "{{ var_obj_spec_targetnamespace }}"
+    context: "{{ var_kubefed_operator }}"
+    state: "{{ install_state }}"
+    definition:
+      apiVersion: operator.kubefed.io/v1alpha1
+      kind: "{{ var_obj_kind }}"
+      metadata:
+        name: "{{ var_obj_metadata_name }}"
+      spec:
+        scope: "{{ var_kubefed_scope }}"
+
+- name: Enable federating of objects
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; kubefedctl enable {{ item }}"
+  loop: "{{ var_fed_obj_list }}"
+  register: fedobj
+
+- name: Federate OpenShift clusters
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; kubefedctl join {{ item.name }} --cluster-context {{  item.name }} --host-cluster-context {{ var_kubefed_operator }} --v=2 }}"
+  loop: "{{ var_cluster_info }}"
+  register: fedocp

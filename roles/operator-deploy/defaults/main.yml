@@ -1,8 +1,13 @@
 ---
+var_cluster_info:
+  - { name: cluster01, region: eu-west-3, deploy: true }
+  - { name: cluster02, region: eu-central-1, deploy: true }
+  - { name: cluster03, region: eu-west-1, deploy: true }
+
 var_csc_kind: CatalogSourceConfig
 var_csc_metadata_name: namespaced-federation
 var_csc_metadata_namespace: openshift-marketplace
-var_csc_spec_targetnamespace: fed-mongo-namespace
+var_csc_spec_targetnamespace: kube-federation-system
 var_csc_spec_packages: kubefed-operator
 var_csc_spec_csdisplayname: Community Operators
 var_csc_spec_cspublisher: Community
@@ -22,8 +27,28 @@ var_sub_spec_sourcenamespace: "{{ var_csc_spec_targetnamespace }}"
 var_sub_spec_startingcsv: kubefed-operator.v0.1.0
 var_sub_spec_installplanapproval: Automatic
 
+var_kubefed_scope: Cluster
+#var_kubefed_scope: Namespaced
+var_obj_kind: KubeFed
+var_obj_metadata_name: kubefed-resource
+var_obj_spec_targetnamespace: "{{ var_csc_spec_targetnamespace }}"
+
+var_fed_obj_list:
+  - namespaces
+  - deployments.apps
+  - ingresses.extensions
+  - secrets
+  - serviceaccounts
+  - services
+  - persistentvolumeclaims
+  - configmaps
+  - scc
+
+var_kube_concat_name: kube-concat-auth
 var_demofolder_name: fed-ocp-demo
+var_mongofed_configfolder_name: mongofed
 var_kubefed_operator: cluster01
 var_kubeconfig_path: "~/{{ var_demofolder_name }}/{{ var_kubefed_operator }}/auth/kubeconfig"
+var_kubeconfig_concat_path: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/{{ var_kube_concat_name }}"
 
 install_state: present
