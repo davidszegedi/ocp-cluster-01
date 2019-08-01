@@ -5,12 +5,12 @@
     dest: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/01-mongo-federated-secret.yaml"
 
 - name: Update mongodb.pem
-  shell: "sed -i "s/mongodb.pem: .*$/mongodb.pem: $(openssl base64 -A < ../certs/mongo.pem)/" 01-mongo-federated-secret.yaml"
+  shell: "sed -i \"s/mongodb.pem: .*$/mongodb.pem: $(openssl base64 -A < ../certs/mongo.pem)/\" 01-mongo-federated-secret.yaml"
   args:
     chdir: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/"
 
 - name: Update ca.pem
-  shell: "sed -i "s/ca.pem: .*$/ca.pem: $(openssl base64 -A < ../certs/ca.pem)/" 01-mongo-federated-secret.yaml"
+  shell: "sed -i \"s/ca.pem: .*$/ca.pem: $(openssl base64 -A < ../certs/ca.pem)/\" 01-mongo-federated-secret.yaml"
   args:
     chdir: "~/{{ var_demofolder_name }}/{{ var_mongofed_configfolder_name }}/"
 
