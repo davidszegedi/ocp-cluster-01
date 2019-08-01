@@ -1,7 +1,7 @@
 ---
 - name: Get ReplicaSet Status
   #shell: 'export KUBECONFIG=~/fed-ocp-demo/auth-fed/kube-concat-auth; export MONGO_POD=$(oc --context=cluster01 -n mongo get pod --selector="name=mongo" --output=jsonpath='{.items..metadata.name}'); oc --context=cluster01 -n mongo exec $MONGO_POD -- bash -c 'mongo --norc --quiet --username=admin --password=$MONGODB_ADMIN_PASSWORD --host localhost admin --tls --tlsCAFile /opt/mongo-ssl/ca.pem --eval "rs.status()"''
-  shell: export KUBECONFIG=~/fed-ocp-demo/auth-fed/kube-concat-auth; export MONGO_POD=$(oc --context=cluster01 -n mongo get pod --selector=\"name=mongo\" --output=jsonpath=\'{.items..metadata.name}\'); oc --context=cluster01 -n mongo exec $MONGO_POD -- bash -c \'mongo --norc --quiet --username=admin --password=$MONGODB_ADMIN_PASSWORD --host localhost admin --tls --tlsCAFile /opt/mongo-ssl/ca.pem --eval "rs.status()"\' 
+  shell: export KUBECONFIG=~/fed-ocp-demo/auth-fed/kube-concat-auth; export MONGO_POD=$(oc --context=cluster01 -n mongo get pod --selector="name=mongo" --output=jsonpath=\'{.items..metadata.name}\'); oc --context=cluster01 -n mongo exec $MONGO_POD -- bash -c \'mongo --norc --quiet --username=admin --password=$MONGODB_ADMIN_PASSWORD --host localhost admin --tls --tlsCAFile /opt/mongo-ssl/ca.pem --eval "rs.status()"\' 
   register: replicaset_status
 
 - name: Show ReplicaSet Status
