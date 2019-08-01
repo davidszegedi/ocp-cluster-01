@@ -1,7 +1,0 @@
----
-- name: "Configurre certificates for Federation"
-  hosts: localhost
-  gather_facts: no
-
-  roles:
-    - role: "cfssl-config"

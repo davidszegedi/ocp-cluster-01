@@ -1,0 +1,9 @@
+---
+- name: "Deploy Federated Pacman on OpenShift clusters"
+  hosts: localhost
+  gather_facts: no
+
+  # TODO
+
+#  roles:
+#    - role:
