@@ -1,5 +1,5 @@
 ---
-- name: "Create or delete k8s namespace {{ var_csc_spec_targetnamespace }}"
+- name: "Create k8s namespace {{ var_csc_spec_targetnamespace }}"
   k8s:
     kubeconfig: "{{ var_kubeconfig_path }}"
     state: "{{ install_state }}"

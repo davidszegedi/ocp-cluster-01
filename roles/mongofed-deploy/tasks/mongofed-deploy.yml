@@ -33,3 +33,10 @@
   shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; oc --context={{ item.name }} -n {{ var_mongofed_namespace }} {{ var_oc_operation }} route passthrough mongo --service={{ var_mongofed_service }} --port={{ var_mongo_db_external_port }} --hostname=mongo-{{ item.name }}.apps.{{ item.name }}.rheventdemo.com"
   loop: "{{ var_cluster_info }}"
   register: fedroute
+
+- name: Wait for MongoDB instance to be running
+  pause:
+    seconds: 60
+
+- name: Configure MongoDB ReplicaSet
+  shell: "export KUBECONFIG={{ var_kubeconfig_concat_path }}; export MONGO_POD=$(oc --context=cluster01 -n mongo get pod --selector=\"name=mongo\" --output=jsonpath=\'{.items..metadata.name}\'); oc --context=cluster01 -n mongo label pod $MONGO_POD replicaset=primary"
