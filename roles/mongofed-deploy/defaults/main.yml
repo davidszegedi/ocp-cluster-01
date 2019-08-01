@@ -39,8 +39,8 @@ install_state: present
 
 var_mongodb_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/mongo.pem"
 var_ca_pem_data_path: "~/{{ var_demofolder_name }}/{{ var_certdir_name }}/ca.pem"
-var_mongodb_pem_data: "{{ lookup('file', var_mongodb_pem_data_path) | b64encode }}Cg=="
-var_ca_pem_data: "{{ lookup('file', var_ca_pem_data_path) | b64encode }}Cg=="
+var_mongodb_pem_data: "{{ lookup('file', var_mongodb_pem_data_path) | b64encode }}"
+var_ca_pem_data: "{{ lookup('file', var_ca_pem_data_path) | b64encode }}"
 
 var_mongo_db_external_port: 27017
 var_mongo_db_internal_port: 27017
