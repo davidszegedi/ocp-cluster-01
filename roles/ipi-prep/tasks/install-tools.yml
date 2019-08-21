@@ -4,6 +4,12 @@
     url: "{{ var_ocpinstall_url }}{{ var_occlient_filename }}"
     dest: "~/{{ var_demofolder_name }}/utils"
 
+- name: Ensure binaries dir exists
+  file:
+    path: "~/bin/"
+    state: directory
+    mode: '0755'
+
 - name: Extract oc client
   unarchive:
     src: "~/{{ var_demofolder_name }}/utils/{{ var_occlient_filename }}"
