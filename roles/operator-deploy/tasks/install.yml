@@ -58,7 +58,21 @@
   pause:
     seconds: 30
 
-- name: Enable the Kubefed Controller Manager
+- name: Create the Kubefed webhook
+  k8s:
+    kubeconfig: "{{ var_kubeconfig_concat_path }}"
+    namespace: "{{ var_obj_spec_targetnamespace }}"
+    context: "{{ var_kubefed_operator }}"
+    state: "{{ install_state }}"
+    definition:
+      apiVersion: operator.kubefed.io/v1alpha1
+      kind: "{{ var_webh_kind }}"
+      metadata:
+        name: "{{ var_webh_metadata_name }}"
+      spec:
+
+
+- name: Create the Kubefed ressource
   k8s:
     kubeconfig: "{{ var_kubeconfig_concat_path }}"
     namespace: "{{ var_obj_spec_targetnamespace }}"

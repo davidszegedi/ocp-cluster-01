@@ -35,20 +35,26 @@ var_obj_spec_targetnamespace: "{{ var_csc_spec_targetnamespace }}"
 
 var_fed_obj_list:
   - namespaces
-  - deployments.apps
   - ingresses.extensions
   - secrets
   - serviceaccounts
   - services
-  - persistentvolumeclaims
   - configmaps
-  - scc
+  - persistentvolumeclaims
+  - deployments.apps
+  - clusterrolebindings.rbac.authorization.k8s.io
+  - clusterroles.rbac.authorization.k8s.io
+  - securitycontextconstraints
 
 var_kube_concat_name: kube-concat-auth
 var_demofolder_name: fed-ocp-demo
 var_mongofed_configfolder_name: mongofed
 var_kubeconfigfolder_name: auth-fed
 var_kubefed_operator: cluster01
+
+var_webh_kind: KubeFedWebHook
+var_webh_metadata_name: kubefed-webhook-resource
+
 var_kubeconfig_path: "~/{{ var_demofolder_name }}/{{ var_kubefed_operator }}/auth/kubeconfig"
 var_kubeconfig_concat_path: "~/{{ var_demofolder_name }}/{{ var_kubeconfigfolder_name }}/{{ var_kube_concat_name }}"
 
